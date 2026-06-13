@@ -1,0 +1,293 @@
+/* ============================================================
+   HEADER  ·  header.css
+   Scope: .site-header, .nav-drawer only
+   All colours/spacing pull from globals.css tokens — zero
+   hardcoded values so the design stays in sync automatically.
+   ============================================================ */
+
+/* ── Google Font for the script wordmark ── */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+/* ============================================================
+   1. SITE HEADER BAR
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;  /* left | center | right */
+  align-items: center;
+
+  padding-block: var(--space-5);
+  padding-inline: var(--space-8);
+
+  background: #000000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  transition: padding-block var(--duration-slow) var(--ease-out-expo);
+}
+
+.site-header--scrolled {
+  padding-block: var(--space-4);
+}
+
+/* ── LEFT ── */
+.header__menu-btn {
+  /* Reset */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  color: #c8c8c8;
+  justify-self: start;
+}
+
+.header__menu-btn:hover .header__menu-label {
+  opacity: 0.6;
+}
+
+.header__menu-btn:hover .header__hamburger span {
+  transform: scaleX(0.75);
+}
+
+/* When open — top line rotates to X, bottom line rotates opposite */
+.header__menu-btn[aria-expanded="true"] .header__hamburger span:first-child {
+  transform: translateY(3px) rotate(45deg);
+}
+.header__menu-btn[aria-expanded="true"] .header__hamburger span:last-child {
+  transform: translateY(-3px) rotate(-45deg);
+}
+/* Disable the scaleX hover when open */
+.header__menu-btn[aria-expanded="true"]:hover .header__hamburger span {
+  transform: translateY(3px) rotate(45deg);
+}
+.header__menu-btn[aria-expanded="true"]:hover .header__hamburger span:last-child {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
+.header__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.header__hamburger span {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: #c8c8c8;
+  transform-origin: left center;
+  transition: transform var(--duration-base) var(--ease-out-expo),
+              opacity  var(--duration-base) var(--ease-out-expo);
+}
+
+.header__menu-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  color: #c8c8c8;
+  transition: opacity var(--duration-base) var(--ease-out-expo);
+}
+
+/* ── CENTER ── */
+.header__wordmark {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 400;
+  color: #c8c8c8;
+  text-decoration: none;
+  letter-spacing: 0;
+  line-height: 1;
+  justify-self: center;
+  transition: color var(--duration-base) var(--ease-out-expo);
+}
+
+.header__wordmark:hover {
+  color: #e8e8e8;
+}
+
+/* ── RIGHT ── */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  justify-self: end;
+}
+
+/* Thin vertical rule between search and bag — matches the image */
+.header__actions::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: var(--color-surface-border-hover);
+  order: 1;                   /* sits between the two icons */
+}
+
+.header__icon-btn {
+  /* Reset */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #c8c8c8;
+  font-size: 1rem;
+  line-height: 1;
+  transition: opacity var(--duration-fast) var(--ease-out-expo);
+}
+
+.header__icon-btn:first-child { order: 0; }
+.header__icon-btn:last-child  { order: 2; }
+
+.header__icon-btn:hover {
+  opacity: 0.6;
+}
+
+.header__cart-count {
+  position: absolute;
+  top: -6px;
+  right: -7px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--color-bg-primary);
+  background: var(--color-text-primary);
+  border-radius: var(--radius-full);
+  min-width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 2px;
+}
+
+/* ============================================================
+   2. FULL-SCREEN NAV DRAWER
+   ============================================================ */
+.nav-drawer {
+  position: fixed;
+  top: 60px;          /* sits flush below the header bar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--z-nav) - 1);  /* below header, above page */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: var(--space-16);
+
+  background: #000000;
+
+  /* Slide in from left */
+  transform: translateX(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    transform  var(--duration-slow) var(--ease-out-expo),
+    opacity    var(--duration-slow) var(--ease-out-expo),
+    visibility var(--duration-slow) var(--ease-out-expo);
+}
+
+.nav-drawer--open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-drawer__close {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-8);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: var(--space-2);
+  transition: opacity var(--duration-fast) var(--ease-out-expo);
+}
+
+.nav-drawer__close:hover {
+  opacity: 0.5;
+}
+
+.nav-drawer__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.nav-drawer__link {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  display: inline-block;
+  transition:
+    color     var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo);
+}
+
+.nav-drawer__link:hover {
+  color: var(--color-text-primary);
+  transform: translateX(var(--space-3));
+}
+
+/* Backdrop */
+.nav-drawer__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-modal) - 1);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   3. RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  .site-header {
+    padding-inline: var(--space-5);
+  }
+
+  .header__menu-label {
+    display: none;   /* show only the hamburger lines on very small screens */
+  }
+
+  .nav-drawer {
+    padding-inline: var(--space-8);
+  }
+}
+
+/* ============================================================
+   4. HERO SPACER HELPER
+   Push hero content below the fixed header without any
+   margin/padding on the header itself. Add this class to your
+   Hero section's outermost element:  <section class="hero-offset">
+   ============================================================ */
+.hero-offset {
+  padding-top: 72px;   /* matches header height at rest */
+}

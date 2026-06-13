@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 import  'aos/dist/aos.css'
 import Header from "./components/Header";
+import Footer from "./sections/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,12 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <Header/>
-        {children}</body>
+       
+        {children}
+        
+        <Footer/>
+        
+        </body>
     </html>
   );
 }
