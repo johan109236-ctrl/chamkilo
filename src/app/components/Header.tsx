@@ -13,7 +13,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -23,7 +22,6 @@ export default function Header() {
     <>
       <header className={`site-header${scrolled ? ' site-header--scrolled' : ''}`}>
 
-        {/* ── LEFT: Hamburger + MENU ── */}
         <button
           className="header__menu-btn"
           onClick={() => setMenuOpen(prev => !prev)}
@@ -37,12 +35,18 @@ export default function Header() {
           <span className="header__menu-label">MENU</span>
         </button>
 
-        {/* ── CENTER: Wordmark ── */}
         <a href="/" className="header__wordmark" aria-label="Chamkilo home">
-          Chamkilo
-        </a>
 
-        {/* ── RIGHT: Icon row ── */}
+ <img 
+  src="/assets/images/chamkilo-logo.png" 
+  className="header__logo-img" 
+  alt="Chamkilo" 
+/>
+  
+  
+
+</a>
+
         <div className="header__actions">
           <button className="header__icon-btn" aria-label="Search">
             <i className="bi bi-search" />
@@ -54,7 +58,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* ── Full-screen nav drawer — starts below the header ── */}
       <div
         className={`nav-drawer${menuOpen ? ' nav-drawer--open' : ''}`}
         aria-hidden={!menuOpen}
@@ -76,7 +79,6 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Backdrop */}
       {menuOpen && (
         <div
           className="nav-drawer__backdrop"

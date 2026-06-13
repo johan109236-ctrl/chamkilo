@@ -1,16 +1,8 @@
-/* ============================================================
-   HEADER  ·  header.css
-   Scope: .site-header, .nav-drawer only
-   All colours/spacing pull from globals.css tokens — zero
-   hardcoded values so the design stays in sync automatically.
-   ============================================================ */
 
-/* ── Google Font for the script wordmark ── */
+
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
-/* ============================================================
-   1. SITE HEADER BAR
-   ============================================================ */
+
 .site-header {
   position: fixed;
   top: 0;
@@ -19,7 +11,7 @@
   z-index: var(--z-nav);
 
   display: grid;
-  grid-template-columns: 1fr auto 1fr;  /* left | center | right */
+  grid-template-columns: 1fr auto 1fr;  
   align-items: center;
 
   padding-block: var(--space-5);
@@ -35,9 +27,7 @@
   padding-block: var(--space-4);
 }
 
-/* ── LEFT ── */
 .header__menu-btn {
-  /* Reset */
   background: none;
   border: none;
   padding: 0;
@@ -99,7 +89,6 @@
   transition: opacity var(--duration-base) var(--ease-out-expo);
 }
 
-/* ── CENTER ── */
 .header__wordmark {
   font-family: 'Great Vibes', cursive;
   font-size: clamp(1.6rem, 3vw, 2.1rem);
@@ -282,12 +271,7 @@
   }
 }
 
-/* ============================================================
-   4. HERO SPACER HELPER
-   Push hero content below the fixed header without any
-   margin/padding on the header itself. Add this class to your
-   Hero section's outermost element:  <section class="hero-offset">
-   ============================================================ */
+
 .hero-offset {
   padding-top: 72px;   /* matches header height at rest */
 }
